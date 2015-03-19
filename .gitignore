@@ -15,5 +15,5 @@ bin
 
 build
 
-.settings
-.gradle
+.settings/
+.gradle/
