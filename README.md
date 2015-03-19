@@ -9,13 +9,20 @@ Spring Boot is the framework to create standalone production ready restful web s
 
 The jar executable artifact "build/libs/spring-boot-sample-0.1.0.jar" is create as a result of the above command
 
+__Screenshot - 1__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-1.png)
+
 ## How to run this Project?
 * $>java -jar  build/libs/spring-boot-sample-0.1.0.jar
 
+__Screenshot - 2__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-2.png)
+
+
 Open http://localhost:8080/sdoc.jsp in your browser. You will be shown Swagger Restful Documentation there. Refer the screenshot below
 
-TBD - PIC
-
+__Screenshot - 3__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-3.png)
 
 
 
@@ -29,7 +36,37 @@ Swagger is a tool to
 This projects shows an example of how you can integrate Swagger to document the restful apis
 Click on Expand Operation and try out the Create Customer API and List Customers API. Refer the screenshot below
 
-TBD - PIC
+__Screenshot - 3__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-3.png)
+
+
+### List Customers Web Service
+Trying out the List Customers Web Services is simple, just click on tryout button.
+
+__Screenshot - 4__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-4.png)
+
+__Screenshot - 5__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-5.png)
+
+
+### Create Customer Web Service
+Click on the Schema
+
+__Screenshot - 6__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-6.png)
+
+Change the values
+
+__Screenshot - 7__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-7.png)
+
+Click on the tryout button and see the results. You can try the List Customers Web Service to check if this new customer has been added to the list.
+
+
+__Screenshot - 8__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-8.png)
+
 
 
 ## Gradle build to churn our Docker Images as Artifact along side Executable Jars
