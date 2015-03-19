@@ -72,6 +72,34 @@ __Screenshot - 8__
 ## Gradle build to churn our Docker Images as Artifact along side Executable Jars
 With the advent of Docker the focus changes from creating application binary as artifacts to creating complete Dockerized Image of your application (or part of your application like a microservices). This project show an example as to how a gradle code creates a Docker Image for the Business Application. This image can be launched on laptop, QA machines, Staging and Even in Production and will behave exactly the same way.
 
+Luckily we have a Gradle Plugin that can directly create the Docker Image of the Business Application (in our case our restful web service).
+
+$>./gradlew distDocker
+
+__Screenshot - 9__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-9.png)
+
+We can now check if this image (synerzip/springboot-template) is created as part of this build. Note the name comes from build.gradle file
+
+__Screenshot - 10__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-10.png)
+
+The next step is to take this image and run it. Note you can push this image to docker hub private repository which the devops team can then take to put it on a production server.
+
+$>docker run -d -p 8080:8080 synerzip/springboot-template
+
+* -d option is to run the container in deamon mode
+* -p is to map port 8080 from the container to the host machine (in this case boot2docker machine on mac)
+* synerzip/springboot-template is the image we want to run
+
+
+__Screenshot - 11__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-11.png)
+
+Now you can point your browser to http:&lt;&lt;host-machine-ip&gt;&gt;:8080/sdoc.jsp. You can see the same application we earlier ran from our host machine, now running in the container container from a Docker Image
+
+__Screenshot - 12__
+![](https://raw.githubusercontent.com/rohitghatol/springboot-docker-swagger/master/screenshots/pic-12.png)
 
 
 ## Future Integration with Netflix Microservices framework via Spring Cloud
