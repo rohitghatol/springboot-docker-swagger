@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava.JavaVersion;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -49,6 +50,7 @@ public class Application {
 			System.out.println(customer);
 		}
 		System.out.println();
+
 
 		// fetch an individual customer by ID
 		Customer customer = repository.findOne(1L);
