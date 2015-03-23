@@ -1,6 +1,6 @@
 buildscript {
 	project.ext {
-        bootVersion = '1.1.4.RELEASE'
+        bootVersion = '1.2.2.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -12,12 +12,23 @@ buildscript {
         classpath 'se.transmode.gradle:gradle-docker:1.2'
     }
 }
-
+apply plugin: "sonar-runner"
 apply plugin: 'application'
 apply plugin: 'eclipse'
 apply plugin: 'spring-boot'
 apply plugin: 'java'
 apply plugin: 'docker'
+
+
+sonarRunner {
+    sonarProperties {
+        property "sonar.host.url", "http://162.243.152.234:9000"
+        property "sonar.jdbc.url", "jdbc:mysql://162.243.152.234:3306/sonar"
+        property "sonar.jdbc.driverClassName", "com.mysql.jdbc.Driver"
+        property "sonar.jdbc.username", "sonar"
+        property "sonar.jdbc.password", "123qwe"
+    }
+}
 
 
 jar {
@@ -29,10 +40,28 @@ repositories {
 	mavenCentral() 
 	jcenter()
 }
+
+configurations {
+    cucumberRuntime {
+        extendsFrom testRuntime
+    }
+}
+
+task cucumber() {
+    dependsOn assemble, compileTestJava
+    doLast {
+        javaexec {
+            main = "cucumber.api.cli.Main"
+            classpath = configurations.cucumberRuntime + sourceSets.main.output + sourceSets.test.output
+            args = [ '--plugin','junit:build/cucumber-junit-report/junit.xml', '--plugin','html:build/cucumber-html-report','--glue', 'com/synerzip/template/springboot', 'src/test/resources']
+        }
+    }
+}
+
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-web:1.1.4.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-data-jpa:1.1.4.RELEASE")
-    compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-web:${project.bootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa:${project.bootVersion}")
+    compile("org.springframework.boot:spring-boot-starter-actuator:${project.bootVersion}")
     
     compile("com.h2database:h2")
     compile("mysql:mysql-connector-java:5.1.30")
@@ -43,13 +72,18 @@ dependencies {
     compile("org.apache.tomcat.embed:tomcat-embed-jasper")
 
     testCompile group: 'junit', name: 'junit', version: '4.+'
-    testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
+    testCompile ("org.springframework:spring-test:${project.bootVersion}")
+    testCompile ("org.springframework.boot:spring-boot-starter-test:${project.bootVersion}")
+    
+    
+    testCompile("info.cukes:cucumber-spring:1.2.2")
+    testCompile("info.cukes:cucumber-junit:1.2.2")
 }
 
 group = 'synerzip'
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 1.7	
+targetCompatibility = 1.7
 
 
 distDocker {
